@@ -6,9 +6,6 @@ export const partnersDiscountsOfffers = [
             if (discountOffer.decreaseTwiceAsFastAfterExpiration()) {
                 return;
             }
-            if (discountOffer.discountInPercent > 0) {
-                discountOffer.discountInPercent -= 1;
-            }
         }),
     new DiscountOffer("Naturalia", 10, 5,
         (discountOffer) => {
@@ -34,5 +31,5 @@ export const partnersDiscountsOfffers = [
         (discountOffer) => {
             discountOffer.expiresIn += 1; // never expires nor decrease based on the partnership's agreement
         },
-        true)
+        true, true)
 ];

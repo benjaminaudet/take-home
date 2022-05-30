@@ -9,10 +9,7 @@ export class Store {
         return;
       }
       discountOffer.update(discountOffer);
-      if (!discountOffer.frozen) {
-        discountOffer.discountInPercent -= 1;
-        discountOffer.expiresIn -= 1;
-      }
+      discountOffer.defaultDailyDecrease();
     })
     return this.discountOffers;
   }

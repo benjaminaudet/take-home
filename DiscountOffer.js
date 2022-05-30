@@ -1,10 +1,11 @@
 export class DiscountOffer {
-    constructor(partnerName, expiresIn, discountInPercent, update, frozen) {
+    constructor(partnerName, expiresIn, discountInPercent, update, fixedExpiration, fixedDiscountInPercent) {
         this.partnerName = partnerName;
         this.expiresIn = expiresIn;
         this.discountInPercent = discountInPercent;
         this.update = update || (() => { });
-        this.frozen = frozen || false;
+        this.fixedExpiration = fixedExpiration || false;
+        this.fixedDiscountInPercent = fixedDiscountInPercent || false;
     }
 
 
@@ -31,6 +32,19 @@ export class DiscountOffer {
             return true;
         }
         return false;
+    }
+
+    defaultDailyDecrease() {
+        if (!this.fixedExpiration) {
+            this.expiresIn -= 1;
+        }
+        if (this.decreaseTwiceAsFastAfterExpiration()) {
+            return;
+        }
+        if (!this.fixedDiscountInPercent) {
+            this.discountInPercent -= 1;
+        }
+
     }
 
 }
