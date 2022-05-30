@@ -1,13 +1,11 @@
 export class DiscountOffer {
-    constructor(partnerName, expiresIn, discountInPercent, update, fixedExpiration, fixedDiscountInPercent) {
+    constructor(partnerName, expiresIn, discountInPercent, fixedExpiration, fixedDiscountInPercent) {
         this.partnerName = partnerName;
         this.expiresIn = expiresIn;
         this.discountInPercent = discountInPercent;
-        this.update = update || (() => { });
         this.fixedExpiration = fixedExpiration || false;
         this.fixedDiscountInPercent = fixedDiscountInPercent || false;
     }
-
 
     increaseBasedOnExpiration(_expiresInLimit) {
         if (this.discountInPercent >= 50) {
@@ -46,5 +44,4 @@ export class DiscountOffer {
         }
 
     }
-
 }
