@@ -1,4 +1,5 @@
-import { Store, DiscountOffer } from "./store";
+import { Store } from './store';
+import { DiscountOffer } from "./DiscountOffer";
 
 import fs from "fs";
 
@@ -10,11 +11,14 @@ const discountOffers = [
 ];
 const store = new Store(discountOffers);
 
-const log = [];
 
-for (let elapsedDays = 0; elapsedDays < 30; elapsedDays++) {
+const DAYS_AMOUNT = 30;
+const log = [];
+const days = [...Array(DAYS_AMOUNT).keys()]
+
+days.forEach(() => {
   log.push(JSON.stringify(store.updateDiscounts()));
-}
+})
 
 /* eslint-disable no-console */
 fs.writeFile("output.json", JSON.stringify(log), err => {
