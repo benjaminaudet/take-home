@@ -20,6 +20,9 @@ export class Store {
           discountOffer.increaseBasedOnExpiration(10);
           discountOffer.increaseBasedOnExpiration(5);
         }
+      },
+      'BackMarket': (discountOffer) => {
+        discountOffer.discountInPercent -= 1;
       }
     }
   }
