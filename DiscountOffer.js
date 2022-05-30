@@ -11,13 +11,13 @@ export class DiscountOffer {
         if (this.discountInPercent >= 50) {
             return;
         }
-        if (this.expiresIn < _expiresInLimit) {
+        if (this.expiresIn <= _expiresInLimit) {
             this.discountInPercent += 1;
         }
     }
 
     decreaseTwiceAsFastAfterExpiration() {
-        if (this.expiresIn <= 0) {
+        if (this.expiresIn < 0) {
             this.discountInPercent -= 2;
             return true;
         }
@@ -25,7 +25,7 @@ export class DiscountOffer {
     }
 
     increaseTwiceAsFastAfterExpiration() {
-        if (this.expiresIn <= 0) {
+        if (this.expiresIn < 0) {
             this.discountInPercent += 2;
             return true;
         }
@@ -36,7 +36,7 @@ export class DiscountOffer {
         if (!this.fixedExpiration) {
             this.expiresIn -= 1;
         }
-        if (this.decreaseTwiceAsFastAfterExpiration()) {
+        if (!this.fixedDiscountInPercent && this.decreaseTwiceAsFastAfterExpiration()) {
             return;
         }
         if (!this.fixedDiscountInPercent) {

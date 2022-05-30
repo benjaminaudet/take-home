@@ -3,21 +3,23 @@ export class Store {
     this.discountOffers = discountOffers;
     this.specificDiscountsUpdateByPartner = {
       'Naturalia': (discountOffer) => {
-        if (discountOffer.increaseTwiceAsFastAfterExpiration()) {
-          return;
-        }
         if (discountOffer.discountInPercent < 50) {
+          if (discountOffer.increaseTwiceAsFastAfterExpiration()) {
+            return;
+          }
           discountOffer.discountInPercent += 1;
         }
       },
       'Vinted': (discountOffer) => {
-        if (discountOffer.expiresIn <= 0) {
+        if (discountOffer.expiresIn < 0) {
           discountOffer.discountInPercent = 0;
           return;
         }
-        discountOffer.discountInPercent += 1;
-        discountOffer.increaseBasedOnExpiration(11);
-        discountOffer.increaseBasedOnExpiration(6);
+        if (discountOffer.discountInPercent < 50) {
+          discountOffer.discountInPercent += 1;
+          discountOffer.increaseBasedOnExpiration(10);
+          discountOffer.increaseBasedOnExpiration(5);
+        }
       }
     }
   }
